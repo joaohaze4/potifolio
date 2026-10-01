@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>João Guilherme | Cyber CV</title>
+
+    <style>
+
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #dbeafe;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.20), transparent 25%),
+                radial-gradient(circle at 85% 70%, rgba(124, 58, 237, 0.18), transparent 30%),
+                linear-gradient(135deg, #020617, #050b1d 50%, #020617);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Estrelas */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px),
+                radial-gradient(circle, rgba(96,165,250,.5) 1px, transparent 1px);
+
+            background-size: 80px 80px, 130px 130px;
+            background-position: 0 0, 40px 60px;
+
+            opacity: .25;
+            z-index: -2;
+        }
+
+        /* Brilho espacial */
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            right: -200px;
+            bottom: -200px;
+
+            background: radial-gradient(
+                circle,
+                rgba(37, 99, 235, .20),
+                transparent 70%
+            );
+
+            pointer-events: none;
+            z-index: -1;
+        }
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .curriculo {
+            width: 94%;
+            max-width: 1200px;
+            margin: 40px auto;
+
+            background: rgba(2, 6, 23, .82);
+
+            border: 1px solid rgba(59, 130, 246, .45);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 0 40px rgba(37, 99, 235, .12),
+                inset 0 0 40px rgba(37, 99, 235, .03);
+
+            overflow: hidden;
+
+            backdrop-filter: blur(12px);
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: relative;
+
+            padding: 50px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15, 23, 42, .95),
+                    rgba(30, 27, 75, .85)
+                );
+
+            border-bottom: 1px solid rgba(59, 130, 246, .5);
+
+            overflow: hidden;
+        }
+
+        /* linhas tecnológicas */
+
+        header::before {
+            content: "";
+
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            right: -300px;
+            top: -350px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(59, 130, 246, .25);
+
+            box-shadow:
+                0 0 80px rgba(37, 99, 235, .15);
+        }
+
+        header::after {
+            content: "01001001 01010100 01000011";
+
+            position: absolute;
+
+            right: 40px;
+            bottom: 20px;
+
+            color: rgba(96, 165, 250, .18);
+
+            font-family: monospace;
+
+            font-size: 12px;
+
+            letter-spacing: 4px;
+        }
+
+        .cabecalho {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+        }
+
+
+        /* =====================================================
+           FOTO
+        ===================================================== */
+
+        .foto-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .foto {
+            width: 155px;
+            height: 155px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 3px solid #60a5fa;
+
+            padding: 5px;
+
+            background: #020617;
+
+            box-shadow:
+                0 0 15px #2563eb,
+                0 0 40px rgba(37, 99, 235, .5);
+        }
+
+        .foto-container::before {
+            content: "";
+
+            position: absolute;
+
+            inset: -10px;
+
+            border-radius: 50%;
+
+            border: 1px dashed rgba(96, 165, 250, .7);
+
+            animation: girar 15s linear infinite;
+        }
+
+        @keyframes girar {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           INFORMAÇÕES DO HEADER
+        ===================================================== */
+
+        .informacoes {
+            flex: 1;
+        }
+
+        .codigo {
+            color: #60a5fa;
+
+            font-family: monospace;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+            letter-spacing: 2px;
+        }
+
+        header h1 {
+            font-size: clamp(32px, 5vw, 52px);
+
+            line-height: 1;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            color: #f8fafc;
+
+            text-shadow:
+                0 0 10px rgba(96, 165, 250, .6),
+                0 0 25px rgba(37, 99, 235, .3);
+
+            margin-bottom: 12px;
+        }
+
+        header h2 {
+            color: #60a5fa;
+
+            font-size: 19px;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .contato {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+        .contato span {
+            padding: 8px 13px;
+
+            border: 1px solid rgba(96, 165, 250, .35);
+
+            border-radius: 6px;
+
+            background: rgba(15, 23, 42, .65);
+
+            color: #bfdbfe;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           FRASE / TERMINAL
+        ===================================================== */
+
+        .terminal {
+            margin-top: 35px;
+
+            padding: 15px 20px;
+
+            border-left: 3px solid #2563eb;
+
+            background: rgba(2, 6, 23, .75);
+
+            font-family: monospace;
+
+            color: #60a5fa;
+
+            font-size: 14px;
+
+            box-shadow:
+                inset 0 0 20px rgba(37, 99, 235, .04);
+        }
+
+        .terminal span {
+            color: #22c55e;
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        main {
+            padding: 40px;
+        }
+
+        .grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 22px;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, .90),
+                    rgba(2, 6, 23, .90)
+                );
+
+            border: 1px solid rgba(59, 130, 246, .35);
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            overflow: hidden;
+
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+
+            border-color: rgba(96, 165, 250, .8);
+
+            box-shadow:
+                0 0 25px rgba(37, 99, 235, .15);
+        }
+
+        .card::after {
+            content: "</>";
+
+            position: absolute;
+
+            right: 18px;
+            bottom: 10px;
+
+            color: rgba(59, 130, 246, .08);
+
+            font-family: monospace;
+
+            font-size: 40px;
+
+            font-weight: bold;
+        }
+
+        .card h2 {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #60a5fa;
+
+            font-size: 18px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            padding-bottom: 13px;
+
+            margin-bottom: 18px;
+
+            border-bottom: 1px solid rgba(59, 130, 246, .25);
+        }
+
+        .icone {
+            color: #2563eb;
+
+            font-family: monospace;
+
+            font-size: 22px;
+        }
+
+        .card p {
+            color: #a5b4fc;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           PERFIL
+        ===================================================== */
+
+        .perfil {
+            grid-column: span 1;
+        }
+
+
+        /* =====================================================
+           FORMAÇÃO
+        ===================================================== */
+
+        .formacao-item {
+            border-left: 2px solid #2563eb;
+
+            padding-left: 18px;
+
+            margin-bottom: 20px;
+
+            position: relative;
+        }
+
+        .formacao-item::before {
+            content: "";
+
+            position: absolute;
+
+            left: -7px;
+            top: 3px;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #60a5fa;
+
+            box-shadow: 0 0 10px #2563eb;
+        }
+
+        .formacao-item h3 {
+            color: #e0f2fe;
+
+            font-size: 16px;
+
+            margin-bottom: 5px;
+        }
+
+        .formacao-item span {
+            color: #60a5fa;
+
+            font-family: monospace;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           CONHECIMENTOS
+        ===================================================== */
+
+        .skill {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid rgba(59, 130, 246, .12);
+        }
+
+        .skill:last-child {
+            border-bottom: none;
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #2563eb;
+
+            border-radius: 8px;
+
+            color: #60a5fa;
+
+            font-family: monospace;
+
+            font-weight: bold;
+
+            background: rgba(37, 99, 235, .08);
+
+            flex-shrink: 0;
+        }
+
+        .skill h3 {
+            color: #dbeafe;
+
+            font-size: 15px;
+
+            margin-bottom: 3px;
+        }
+
+        .skill p {
+            margin: 0;
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           EXPERIÊNCIA
+        ===================================================== */
+
+        .experiencia {
+            position: relative;
+
+            margin-left: 8px;
+
+            padding-left: 25px;
+
+            border-left: 2px solid rgba(37, 99, 235, .5);
+
+            padding-bottom: 22px;
+
+            margin-bottom: 5px;
+        }
+
+        .experiencia:last-child {
+            border-left-color: transparent;
+        }
+
+        .experiencia::before {
+            content: "";
+
+            position: absolute;
+
+            left: -7px;
+            top: 2px;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            border: 2px solid #0f172a;
+
+            box-shadow: 0 0 12px #2563eb;
+        }
+
+        .experiencia h3 {
+            color: #dbeafe;
+
+            font-size: 16px;
+
+            margin-bottom: 3px;
+        }
+
+        .experiencia .periodo {
+            color: #60a5fa;
+
+            font-family: monospace;
+
+            font-size: 12px;
+
+            margin-bottom: 8px;
+        }
+
+        .experiencia p {
+            font-size: 13px;
+
+            color: #94a3b8;
+
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           CURSOS
+        ===================================================== */
+
+        .curso {
+            padding: 14px;
+
+            margin-bottom: 10px;
+
+            border: 1px solid rgba(59, 130, 246, .2);
+
+            background: rgba(15, 23, 42, .6);
+
+            border-radius: 7px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        .curso strong {
+            color: #dbeafe;
+        }
+
+
+        /* =====================================================
+           COMPETÊNCIAS
+        ===================================================== */
+
+        .competencias {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            list-style: none;
+        }
+
+        .competencias li {
+            padding: 9px 14px;
+
+            border: 1px solid #2563eb;
+
+            border-radius: 20px;
+
+            color: #93c5fd;
+
+            background: rgba(37, 99, 235, .08);
+
+            font-size: 12px;
+
+            transition: .3s;
+        }
+
+        .competencias li:hover {
+            background: #2563eb;
+
+            color: white;
+
+            box-shadow: 0 0 15px rgba(37, 99, 235, .5);
+        }
+
+
+        /* =====================================================
+           FRASE FINAL
+        ===================================================== */
+
+        .frase {
+            grid-column: span 2;
+
+            text-align: center;
+
+            padding: 35px;
+
+            border-top: 1px solid rgba(59, 130, 246, .25);
+
+            border-bottom: 1px solid rgba(59, 130, 246, .25);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(37, 99, 235, .08),
+                    transparent 70%
+                );
+        }
+
+        .frase p {
+            color: #60a5fa;
+
+            font-family: monospace;
+
+            font-size: 16px;
+
+            letter-spacing: 2px;
+
+            margin: 0;
+        }
+
+        .frase span {
+            color: #22c55e;
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+        ===================================================== */
+
+        footer {
+            padding: 25px;
+
+            text-align: center;
+
+            background: #020617;
+
+            border-top: 1px solid rgba(59, 130, 246, .3);
+
+            color: #64748b;
+
+            font-family: monospace;
+
+            font-size: 12px;
+        }
+
+        footer span {
+            color: #2563eb;
+        }
+
+
+        /* =====================================================
+           RESPONSIVIDADE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .curriculo {
+                width: 96%;
+                margin: 15px auto;
+            }
+
+            header {
+                padding: 35px 25px;
+            }
+
+            .cabecalho {
+                flex-direction: column;
+
+                text-align: center;
+            }
+
+            .foto {
+                width: 130px;
+                height: 130px;
+            }
+
+            .contato {
+                justify-content: center;
+            }
+
+            main {
+                padding: 25px 18px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .frase {
+                grid-column: span 1;
+            }
+
+            .perfil {
+                grid-column: span 1;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            header h2 {
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .contato {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="curriculo">
+
+
+        <!-- =================================================
+             CABEÇALHO
+        ================================================== -->
+
+        <header>
+
+            <div class="cabecalho">
+
+
+                <div class="foto-container">
+
+                    <img
+                        class="foto"
+                        src="1000179682.webp"
+                        alt="Foto de João Guilherme"
+                    >
+
+                </div>
+
+
+                <div class="informacoes">
+
+                    <div class="codigo">
+                        &lt;IDENTITY / USER_PROFILE&gt;
+                    </div>
+
+
+                    <h1>
+                        João Guilherme
+                    </h1>
+
+
+                    <h2>
+                        Estágio em Tecnologia da Informação
+                    </h2>
+
+
+                    <div class="contato">
+
+                        <span>
+                            📍 Palmas - TO
+                        </span>
+
+                        <span>
+                            📱 (18) 9 9608-1534
+                        </span>
+
+                        <span>
+                            📱 (63) 9 8517-3924
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="terminal">
+
+                <span>joaoguilhermepereiraaquino4@gmail.com:</span>~$ estudante --area
+                tecnologia --foco back-end --interesse cybersecurity
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             CONTEÚDO
+        ================================================== -->
+
+        <main>
+
+
+            <div class="grid">
+
+
+                <!-- PERFIL -->
+
+                <section class="card perfil">
+
+                    <h2>
+
+                        <span class="icone">
+                            [01]
+                        </span>
+
+                        Perfil Profissional
+
+                    </h2>
+
+
+                    <p>
+                        Estudante de Ciência da Computação na
+                        ULBRA/CEULP, em busca de estágio em
+                        Tecnologia da Informação.
+                    </p>
+
+
+                    <p>
+                        Experiência em logística, estoque e
+                        organização de cargas, com rotina
+                        orientada por metas.
+                    </p>
+
+
+                    <p>
+                        Conhecimentos iniciais em Python,
+                        lógica de programação, Flask e APIs,
+                        com interesse em desenvolvimento
+                        back-end e segurança cibernética.
+                    </p>
+
+                </section>
+
+
+                <!-- FORMAÇÃO -->
+
+                <section class="card">
+
+                    <h2>
+
+                        <span class="icone">
+                            [02]
+                        </span>
+
+                        Formação
+
+                    </h2>
+
+
+                    <div class="formacao-item">
+
+                        <h3>
+                            Ciência da Computação
+                        </h3>
+
+                        <span>
+                            ULBRA/CEULP • EM ANDAMENTO
+                        </span>
+
+                        <p>
+                            Graduação iniciada em 2026.
+                        </p>
+
+                    </div>
+
+
+                    <div class="formacao-item">
+
+                        <h3>
+                            Ensino Médio
+                        </h3>
+
+                        <span>
+                            CONCLUÍDO
+                        </span>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CONHECIMENTOS -->
+
+                <section class="card">
+
+                    <h2>
+
+                        <span class="icone">
+                            [03]
+                        </span>
+
+                        Conhecimentos Técnicos
+
+                    </h2>
+
+
+                    <div class="skill">
+
+                        <div class="skill-icon">
+                            Py
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Python e lógica
+                            </h3>
+
+                            <p>
+                                Entrada e saída, condicionais,
+                                laços e fundamentos de programação.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill">
+
+                        <div class="skill-icon">
+                            &lt;/&gt;
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Desenvolvimento back-end
+                            </h3>
+
+                            <p>
+                                Flask, APIs e integração com HTML.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill">
+
+                        <div class="skill-icon">
+                            &gt;_
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Ferramentas
+                            </h3>
+
+                            <p>
+                                VS Code, PyCharm e GitHub.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- EXPERIÊNCIA -->
+
+                <section class="card">
+
+                    <h2>
+
+                        <span class="icone">
+                            [04]
+                        </span>
+
+                        Experiência
+
+                    </h2>
+
+
+                    <div class="experiencia">
+
+                        <h3>
+                            Auxiliar de Depósito |
+                            Coca-Cola (TO)
+                        </h3>
+
+                        <div class="periodo">
+                            OUT 2025 — JUL 2026
+                        </div>
+
+                        <p>
+                            Montagem e organização de cargas,
+                            separação e conferência de caixas,
+                            apoio ao controle de estoque e
+                            trabalho com metas de produtividade.
+                        </p>
+
+                    </div>
+
+
+                    <div class="experiencia">
+
+                        <h3>
+                            Repositor |
+                            Supermercado Avenida (SP)
+                        </h3>
+
+                        <div class="periodo">
+                            MAI 2024 — JUL 2025
+                        </div>
+
+                        <p>
+                            Reposição e organização de mercadorias
+                            nos setores de mercearia, limpeza e
+                            biscoitos.
+                        </p>
+
+                    </div>
+
+
+                    <div class="experiencia">
+
+                        <h3>
+                            Auxiliar Mecânico Industrial |
+                            Inorvate (GO)
+                        </h3>
+
+                        <div class="periodo">
+                            1 ANO
+                        </div>
+
+                        <p>
+                            Apoio às rotinas de manutenção mecânica
+                            industrial e organização do ambiente.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CURSOS -->
+
+                <section class="card">
+
+                    <h2>
+
+                        <span class="icone">
+                            [05]
+                        </span>
+
+                        Cursos
+
+                    </h2>
+
+
+                    <div class="curso">
+
+                        <strong>
+                            Informática e Tecnologia
+                        </strong>
+
+                        <br>
+
+                        Via Certa
+
+                    </div>
+
+
+                    <div class="curso">
+
+                        <strong>
+                            Liderança e Motivação de Equipe
+                        </strong>
+
+                        <br>
+
+                        Ética nas Relações Pessoais de Trabalho
+                        | Sindicato Rural Patronal
+
+                    </div>
+
+                </section>
+
+
+                <!-- COMPETÊNCIAS -->
+
+                <section class="card">
+
+                    <h2>
+
+                        <span class="icone">
+                            [06]
+                        </span>
+
+                        Competências
+
+                    </h2>
+
+
+                    <ul class="competencias">
+
+                        <li>
+                            Disciplina
+                        </li>
+
+                        <li>
+                            Adaptação rápida
+                        </li>
+
+                        <li>
+                            Trabalho em equipe
+                        </li>
+
+                        <li>
+                            Organização
+                        </li>
+
+                        <li>
+                            Foco em metas
+                        </li>
+
+                    </ul>
+
+                </section>
+
+
+                <!-- FRASE -->
+
+                <div class="frase">
+
+                    <p>
+                        <span>&gt;</span>
+                        aprender();
+                        construir();
+                        evoluir();
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </main>
+
+
+        <!-- =================================================
+             RODAPÉ
+        ================================================== -->
+
+        <footer>
+
+            &lt;/JOAO_GUILHERME&gt;
+
+            <br>
+
+            Ciência da Computação • Back-end • Cybersecurity
+
+            <br>
+
+            <span>
+                SYSTEM_STATUS: ONLINE
+            </span>
+
+        </footer>
+
+
+    </div>
+
+
+</body>
+
+</html>
