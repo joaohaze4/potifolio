@@ -484,6 +484,24 @@
             transition: .3s;
         }
 
+        .projeto-links {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 4px;
+        }
+
+        .projeto-link--destaque {
+            background: #2563eb;
+
+            border-color: #2563eb;
+
+            color: #fff;
+        }
+
         .projeto-link:hover {
             background: #2563eb;
 
@@ -1460,7 +1478,7 @@
                         </h3>
 
                         <span>
-                            MVP • JAVA • JUNIT 5 • GITHUB ACTIONS
+                            JAVA • API WEB • JUNIT 5 • DOCKER
                         </span>
 
                         <p>
@@ -1468,12 +1486,19 @@
                             linha digitável e o código de barras (dígitos
                             verificadores e vencimento) e aponta sinais de
                             fraude, como banco ou valor diferentes do
-                            esperado. 42 testes automatizados.
+                            esperado. Front-end web + API em Java,
+                            com 74 testes automatizados.
                         </p>
 
-                        <a class="projeto-link" href="https://github.com/joaohaze4/Sentinel" target="_blank" rel="noopener">
-                            &lt;/&gt; ver código no GitHub →
-                        </a>
+                        <div class="projeto-links">
+                            <a class="projeto-link projeto-link--destaque" href="https://sentinel-5gi8.onrender.com/" target="_blank" rel="noopener">
+                                ▶ testar online
+                            </a>
+
+                            <a class="projeto-link" href="https://github.com/joaohaze4/Sentinel" target="_blank" rel="noopener">
+                                &lt;/&gt; ver código no GitHub →
+                            </a>
+                        </div>
 
                     </div>
 
