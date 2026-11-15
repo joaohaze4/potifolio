@@ -921,6 +921,34 @@
                 grid-column: span 1;
             }
 
+            /* no celular o currículo ocupa a tela toda,
+               então a chuva aparece mais forte por trás dele */
+            #matriz {
+                opacity: .8;
+            }
+
+            .curriculo {
+                background: rgba(2, 6, 23, .35);
+            }
+
+            header {
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(15, 23, 42, .55),
+                        rgba(30, 27, 75, .45)
+                    );
+            }
+
+            .card {
+                background:
+                    linear-gradient(
+                        145deg,
+                        rgba(15, 23, 42, .84),
+                        rgba(2, 6, 23, .84)
+                    );
+            }
+
         }
 
 
@@ -1702,6 +1730,7 @@
 
         let colunas = [];
         let ultimo = 0;
+        let larguraAnterior = 0;
 
         function ajustarTela() {
 
@@ -1712,12 +1741,20 @@
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.font = tamanho + 'px monospace';
 
-            // cada coluna começa numa altura aleatória (acima da tela)
+            // No celular, a barra de endereço some/aparece ao rolar e isso
+            // dispara "resize" mudando só a altura. Nesse caso a chuva
+            // continua de onde estava em vez de recomeçar do zero.
+            if (window.innerWidth === larguraAnterior) return;
+            larguraAnterior = window.innerWidth;
+
+            // cada coluna começa numa altura aleatória
+            // (algumas já dentro da tela, pra chuva aparecer na hora)
+            const linhas = window.innerHeight / tamanho;
             const quantidade = Math.ceil(window.innerWidth / espaco);
             colunas = [];
 
             for (let i = 0; i < quantidade; i++) {
-                colunas.push(-Math.random() * 60);
+                colunas.push(Math.random() * linhas - linhas * 0.6);
             }
         }
 
