@@ -719,6 +719,157 @@
 
 
         /* =====================================================
+           ANIMAÇÕES
+        ===================================================== */
+
+        @keyframes surgir {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes brilho {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(96, 165, 250, .6),
+                    0 0 25px rgba(37, 99, 235, .3);
+            }
+
+            50% {
+                text-shadow:
+                    0 0 16px rgba(96, 165, 250, .9),
+                    0 0 40px rgba(37, 99, 235, .55);
+            }
+        }
+
+        @keyframes estrelas {
+            to {
+                background-position: 0 -800px, 40px -1240px;
+            }
+        }
+
+        @keyframes pulso {
+            0%, 100% {
+                box-shadow: 0 0 6px #2563eb;
+            }
+
+            50% {
+                box-shadow: 0 0 16px #60a5fa;
+            }
+        }
+
+        @keyframes piscar {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* estrelas se movendo devagar */
+        body::before {
+            animation: estrelas 120s linear infinite;
+        }
+
+        /* bolinhas da linha do tempo pulsando */
+        .experiencia::before,
+        .formacao-item::before {
+            animation: pulso 2.5s ease-in-out infinite;
+        }
+
+        /* cabeçalho aparece em sequência ao abrir a página
+           (só com JavaScript ativo; sem ele, tudo aparece normal) */
+        .js header .codigo,
+        .js header h2,
+        .js .contato > *,
+        .js .terminal {
+            opacity: 0;
+            animation: surgir .8s ease forwards;
+        }
+
+        .js header .codigo { animation-delay: .1s; }
+        .js header h2 { animation-delay: .45s; }
+        .js .contato > :nth-child(1) { animation-delay: .6s; }
+        .js .contato > :nth-child(2) { animation-delay: .68s; }
+        .js .contato > :nth-child(3) { animation-delay: .76s; }
+        .js .contato > :nth-child(4) { animation-delay: .84s; }
+        .js .contato > :nth-child(5) { animation-delay: .92s; }
+        .js .terminal { animation-delay: 1s; }
+
+        .js header h1 {
+            opacity: 0;
+            animation:
+                surgir .8s ease .25s forwards,
+                brilho 4s ease-in-out 1.2s infinite;
+        }
+
+        /* cursor do terminal */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.1em;
+            margin-left: 3px;
+            vertical-align: text-bottom;
+            background: #60a5fa;
+            animation: piscar 1s steps(1) infinite;
+        }
+
+        /* cards surgem ao rolar a página */
+        .js .revelar {
+            opacity: 0;
+        }
+
+        .js .revelar.visivel {
+            animation: surgir .7s ease forwards;
+        }
+
+        /* quem pediu menos movimento no celular/PC não vê animação */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .js header .codigo,
+            .js header h1,
+            .js header h2,
+            .js .contato > *,
+            .js .terminal,
+            .js .revelar {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* na impressão/PDF tudo aparece, sem animação */
+        @media print {
+
+            .js header .codigo,
+            .js header h1,
+            .js header h2,
+            .js .contato > *,
+            .js .terminal,
+            .js .revelar {
+                opacity: 1 !important;
+                animation: none !important;
+            }
+
+            .cursor {
+                display: none;
+            }
+
+        }
+
+
+        /* =====================================================
            RESPONSIVIDADE
         ===================================================== */
 
@@ -795,6 +946,11 @@
         }
 
     </style>
+
+    <script>
+        // marca que o JavaScript está ativo (as animações dependem disso)
+        document.documentElement.classList.add('js');
+    </script>
 
 </head>
 
@@ -1411,6 +1567,113 @@
 
     </div>
 
+
+    <script>
+
+        const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+
+        /* -------------------------------------------------
+           Cards surgem quando entram na tela
+        ------------------------------------------------- */
+
+        const blocos = document.querySelectorAll('.card, .frase');
+
+        if (semMovimento || !('IntersectionObserver' in window)) {
+
+            blocos.forEach(function (bloco) {
+                bloco.classList.remove('revelar');
+            });
+
+        } else {
+
+            const observador = new IntersectionObserver(function (entradas) {
+
+                entradas.forEach(function (entrada, i) {
+
+                    if (!entrada.isIntersecting) return;
+
+                    const bloco = entrada.target;
+
+                    // pequeno atraso entre cards que aparecem juntos
+                    bloco.style.animationDelay = (i * 0.12) + 's';
+                    bloco.classList.add('visivel');
+
+                    // depois da animação, devolve o card ao normal
+                    // (assim o efeito de hover continua funcionando)
+                    bloco.addEventListener('animationend', function () {
+                        bloco.classList.remove('revelar', 'visivel');
+                        bloco.style.animationDelay = '';
+                    }, { once: true });
+
+                    observador.unobserve(bloco);
+                });
+
+            }, { threshold: 0.12 });
+
+            blocos.forEach(function (bloco) {
+                bloco.classList.add('revelar');
+                observador.observe(bloco);
+            });
+
+        }
+
+
+        /* -------------------------------------------------
+           Terminal se digitando sozinho
+        ------------------------------------------------- */
+
+        const terminal = document.querySelector('.terminal');
+
+        // pega todos os pedaços de texto do terminal, na ordem
+        const pedacos = [];
+        const caminhante = document.createTreeWalker(terminal, NodeFilter.SHOW_TEXT);
+
+        while (caminhante.nextNode()) {
+            const no = caminhante.currentNode;
+            const texto = no.textContent.replace(/\s+/g, ' ');
+            pedacos.push({ no: no, texto: texto });
+        }
+
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        terminal.appendChild(cursor);
+
+        if (!semMovimento) {
+
+            // guarda a altura final pra página não "pular" enquanto digita
+            terminal.style.minHeight = terminal.offsetHeight + 'px';
+
+            // esvazia o texto pra depois digitar letra por letra
+            pedacos.forEach(function (p) {
+                p.no.textContent = '';
+            });
+
+            let atual = 0;
+            let letra = 0;
+
+            function digitar() {
+
+                if (atual >= pedacos.length) return;
+
+                const p = pedacos[atual];
+
+                if (letra < p.texto.length) {
+                    p.no.textContent += p.texto[letra];
+                    letra++;
+                    setTimeout(digitar, 35);
+                } else {
+                    atual++;
+                    letra = 0;
+                    digitar();
+                }
+            }
+
+            // começa depois que o terminal aparece na tela
+            setTimeout(digitar, 1500);
+        }
+
+    </script>
 
 </body>
 
