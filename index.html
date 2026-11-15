@@ -284,8 +284,13 @@
                 inset 0 0 20px rgba(37, 99, 235, .04);
         }
 
-        .terminal span {
+        .terminal .prompt {
             color: #22c55e;
+        }
+
+        /* cada flag fica inteira na mesma linha */
+        .terminal .cmd {
+            white-space: nowrap;
         }
 
 
@@ -763,9 +768,20 @@
                 font-size: 28px;
             }
 
-            header h2 {
-                font-size: 14px;
+            header h1 {
                 letter-spacing: 1px;
+            }
+
+            header h2 {
+                font-size: 12px;
+                letter-spacing: .5px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .terminal {
+                font-size: 12px;
+                line-height: 1.6;
             }
 
             .card {
@@ -846,8 +862,11 @@
 
             <div class="terminal">
 
-                <span>guilherme@cv:</span>~$ estudante --area
-                tecnologia --foco back-end --interesse cybersecurity
+                <span class="prompt">guilherme@cv:</span>~$
+                <span class="cmd">estudante</span>
+                <span class="cmd">--area tecnologia</span>
+                <span class="cmd">--foco back-end</span>
+                <span class="cmd">--interesse cybersecurity</span>
 
             </div>
 
