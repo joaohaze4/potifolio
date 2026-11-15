@@ -97,7 +97,6 @@
 
             overflow: hidden;
 
-            backdrop-filter: blur(1.5px);
         }
 
 
@@ -924,7 +923,7 @@
             /* no celular o currículo ocupa a tela toda,
                então a chuva aparece mais forte por trás dele */
             #matriz {
-                opacity: .8;
+                opacity: .65;
             }
 
             .curriculo {
@@ -1724,13 +1723,39 @@
         const ctx = tela.getContext('2d');
 
         const caracteres = '01010101ABCDEF<>/{}';
-        const tamanho = 14;         // tamanho da letra
-        const espaco = 22;          // distância entre colunas
-        const intervalo = 70;       // ms entre cada passo (mais alto = mais lento)
+        const intervalo = 40;       // ms entre cada "tique" da animação
 
-        let colunas = [];
+        // Três camadas = efeito parallax (profundidade).
+        // Longe: letra pequena, apagada e lenta.
+        // Perto: letra maior, mais clara e rápida, mas com poucas colunas.
+        const camadas = [
+            { nome: 'fundo', tamanho: 10, espaco: 15, passo: 3, cor: 'rgba(59, 130, 246, .35)', cabeca: null,      ativas: 1 },
+            { nome: 'meio',  tamanho: 14, espaco: 22, passo: 2, cor: '#3b82f6',                 cabeca: '#dbeafe', ativas: 1 },
+            { nome: 'frente',tamanho: 19, espaco: 40, passo: 1, cor: 'rgba(96, 165, 250, .9)',  cabeca: '#e0f2fe', ativas: .4 }
+        ];
+
         let ultimo = 0;
+        let tique = 0;
         let larguraAnterior = 0;
+
+        function criarColunas(camada) {
+
+            // cada coluna começa numa altura aleatória
+            // (algumas já dentro da tela, pra chuva aparecer na hora)
+            const linhas = window.innerHeight / camada.tamanho;
+            const quantidade = Math.ceil(window.innerWidth / camada.espaco);
+
+            // desloca a camada pro lado pra colunas não ficarem alinhadas
+            camada.deslocamento = Math.random() * camada.espaco;
+            camada.colunas = [];
+
+            for (let i = 0; i < quantidade; i++) {
+                camada.colunas.push({
+                    linha: Math.random() * linhas - linhas * 0.6,
+                    ativa: Math.random() < camada.ativas
+                });
+            }
+        }
 
         function ajustarTela() {
 
@@ -1739,7 +1764,6 @@
             tela.width = window.innerWidth * dpr;
             tela.height = window.innerHeight * dpr;
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.font = tamanho + 'px monospace';
 
             // No celular, a barra de endereço some/aparece ao rolar e isso
             // dispara "resize" mudando só a altura. Nesse caso a chuva
@@ -1747,15 +1771,38 @@
             if (window.innerWidth === larguraAnterior) return;
             larguraAnterior = window.innerWidth;
 
-            // cada coluna começa numa altura aleatória
-            // (algumas já dentro da tela, pra chuva aparecer na hora)
-            const linhas = window.innerHeight / tamanho;
-            const quantidade = Math.ceil(window.innerWidth / espaco);
-            colunas = [];
+            camadas.forEach(criarColunas);
+        }
 
-            for (let i = 0; i < quantidade; i++) {
-                colunas.push(Math.random() * linhas - linhas * 0.6);
-            }
+        function desenharCamada(camada) {
+
+            // camadas mais distantes só andam a cada X tiques (mais lentas)
+            if (tique % camada.passo !== 0) return;
+
+            ctx.font = camada.tamanho + 'px monospace';
+
+            camada.colunas.forEach(function (coluna, i) {
+
+                const y = coluna.linha * camada.tamanho;
+
+                if (coluna.ativa) {
+
+                    const letra = caracteres[Math.floor(Math.random() * caracteres.length)];
+                    const x = camada.deslocamento + i * camada.espaco;
+
+                    // a "cabeça" da coluna às vezes brilha mais
+                    ctx.fillStyle = camada.cabeca && Math.random() > 0.88 ? camada.cabeca : camada.cor;
+                    ctx.fillText(letra, x, y);
+                }
+
+                // quando sai da tela, volta pro topo depois de um tempo
+                if (y > window.innerHeight && Math.random() > 0.975) {
+                    coluna.linha = 0;
+                    coluna.ativa = Math.random() < camada.ativas;
+                } else {
+                    coluna.linha += 1;
+                }
+            });
         }
 
         function desenhar(agora) {
@@ -1764,30 +1811,15 @@
 
             if (agora - ultimo < intervalo) return;
             ultimo = agora;
+            tique++;
 
             // apaga um pouco do que já foi desenhado -> cria o rastro
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.09)';
             ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
             ctx.globalCompositeOperation = 'source-over';
 
-            colunas.forEach(function (linha, i) {
-
-                const letra = caracteres[Math.floor(Math.random() * caracteres.length)];
-                const x = i * espaco;
-                const y = linha * tamanho;
-
-                // a "cabeça" da coluna é mais clara, o resto fica no azul
-                ctx.fillStyle = Math.random() > 0.9 ? '#dbeafe' : '#3b82f6';
-                ctx.fillText(letra, x, y);
-
-                // quando sai da tela, volta pro topo depois de um tempo
-                if (y > window.innerHeight && Math.random() > 0.975) {
-                    colunas[i] = 0;
-                } else {
-                    colunas[i] = linha + 1;
-                }
-            });
+            camadas.forEach(desenharCamada);
         }
 
         if (!semMovimento) {
