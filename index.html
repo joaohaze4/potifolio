@@ -459,6 +459,39 @@
             font-size: 12px;
         }
 
+        /* botão "ver código" dos projetos */
+        .projeto-link {
+            display: inline-block;
+
+            margin-top: 4px;
+
+            padding: 7px 12px;
+
+            border: 1px solid rgba(96, 165, 250, .45);
+
+            border-radius: 6px;
+
+            background: rgba(37, 99, 235, .08);
+
+            color: #93c5fd;
+
+            font-family: monospace;
+
+            font-size: 12px;
+
+            text-decoration: none;
+
+            transition: .3s;
+        }
+
+        .projeto-link:hover {
+            background: #2563eb;
+
+            color: #fff;
+
+            box-shadow: 0 0 15px rgba(37, 99, 235, .5);
+        }
+
 
         /* =====================================================
            CONHECIMENTOS
@@ -1197,9 +1230,9 @@
                             </h3>
 
                             <p>
-                                Python, lógica de programação, estruturas
-                                condicionais, laços, funções, Flask e
-                                fundamentos de APIs.
+                                Python, Java (básico), lógica de programação,
+                                estruturas condicionais, laços, funções,
+                                Flask e fundamentos de APIs.
                             </p>
 
                         </div>
@@ -1427,15 +1460,20 @@
                         </h3>
 
                         <span>
-                            CONCEITO • PYTHON • BACK-END • APIs • BANCO DE DADOS
+                            MVP • JAVA • JUNIT 5 • GITHUB ACTIONS
                         </span>
 
                         <p>
-                            Solução para verificar boletos e dados de
-                            cobrança antes do pagamento, com foco em
-                            inconsistências, divergências e regras de
-                            análise de risco.
+                            Verifica boletos antes do pagamento: valida a
+                            linha digitável e o código de barras (dígitos
+                            verificadores e vencimento) e aponta sinais de
+                            fraude, como banco ou valor diferentes do
+                            esperado. 42 testes automatizados.
                         </p>
+
+                        <a class="projeto-link" href="https://github.com/joaohaze4/Sentinel" target="_blank" rel="noopener">
+                            &lt;/&gt; ver código no GitHub →
+                        </a>
 
                     </div>
 
